@@ -2,7 +2,12 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 
-// Endpoint para receber o webhook de atendimento do WhatsProfissional
+// Rota GET para testes do navegador e validação da plataforma
+app.get('/webhook/atendimento', (req, res) => {
+  return res.status(200).send('Webhook ativo e pronto para receber dados!');
+});
+
+// Rota POST para receber o webhook do WhatsProfissional ao fechar ticket
 app.post('/webhook/atendimento', (req, res) => {
   console.log('--- NOVO ATENDIMENTO RECEBIDO ---');
   console.log(JSON.stringify(req.body, null, 2));
