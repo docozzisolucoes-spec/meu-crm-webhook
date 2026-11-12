@@ -3,6 +3,7 @@ const axios = require('axios');
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Rota GET para testes no navegador e validação
 app.get('/webhook/atendimento', (req, res) => {
@@ -14,14 +15,19 @@ app.post('/webhook/atendimento', async (req, res) => {
   console.log('--- NOVO ATENDIMENTO RECEBIDO ---');
   console.log(JSON.stringify(req.body, null, 2));
 
-  // URL do Google Apps Script implantado
   const GOOGLE_SHEETS_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycby4DF7DU-nqOA4R8IPfkWFfo_vAnnXly6FTHL8bWfkda0Obje_jtl2qb0tIYVYVswI5uA/exec';
 
   try {
-    if (GOOGLE_SHEETS_WEBHOOK_URL) {
-      await axios.post(GOOGLE_SHEETS_WEBHOOK_URL, req.body);
-      console.log('Dados enviados para o Google Sheets com sucesso!');
-    }
+    const response = await axios({
+      method: 'post',
+      url: GOOGLE_SHEETS_WEBHOOK_URL,
+      data: JSON.stringify(req.body),
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+      maxRedirects: 5
+    });
+    console.log('Resposta do Google Sheets:', response.data);
   } catch (error) {
     console.error('Erro ao enviar para o Google Sheets:', error.message);
   }
