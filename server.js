@@ -15,7 +15,7 @@ app.post('/webhook/atendimento', async (req, res) => {
   console.log('--- NOVO ATENDIMENTO RECEBIDO ---');
   console.log(JSON.stringify(req.body, null, 2));
 
-  const GOOGLE_SHEETS_WEBHOOK_URL = https://script.google.com/macros/s/AKfycbx6Ug-mSsFBvopZH19c_NlMy-JEviXvGQ9mb90goUP3lVDrloXGAbjR8J1rx4--5vMrvw/exec](https://script.google.com/macros/s/AKfycbx6Ug-mSsFBvopZH19c_NlMy-JEviXvGQ9mb90goUP3lVDrloXGAbjR8J1rx4--5vMrvw/exec);
+  const GOOGLE_SHEETS_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbx6Ug-mSsFBvopZH19c_NlMy-JEviXvGQ9mb90goUP3lVDrloXGAbjR8J1rx4--5vMrvw/exec';
 
   try {
     const response = await axios({
